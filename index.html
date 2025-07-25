@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冰淇淋點餐機</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: #fff7f0;
+            margin: 0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #ff8c00; /* 深橘色 */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 400px; /* 限制內容最大寬度 */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .button {
+            display: block;
+            margin: 15px auto;
+            padding: 20px 40px;
+            font-size: 1.8rem;
+            border: none;
+            border-radius: 15px; /* 更圓潤的按鈕 */
+            cursor: pointer;
+            background-color: #ffb347; /* 淺橘色 */
+            color: white;
+            width: 80%;
+            max-width: 300px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* 更明顯的陰影 */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none; /* 移除可能有的連結下劃線 */
+        }
+        .button:hover {
+            background-color: #ffa500; /* 懸停時顏色加深 */
+            transform: translateY(-3px); /* 輕微上浮效果 */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* 懸停時陰影變大 */
+        }
+        .hidden {
+            display: none;
+        }
+        /* 手機適應性 */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+            .button {
+                padding: 15px 30px;
+                font-size: 1.5rem;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="page-home" class="page-container">
+        <h1>你要幾球？</h1>
+        <button class="button" onclick="selectScoops(1)">一球</button>
+        <button class="button" onclick="selectScoops(2)">兩球</button>
+    </div>
+
+    <div id="page-one-flavor" class="page-container hidden">
+        <h1>選一個口味</h1>
+        <button class="button" onclick="submitOrder(1, '香草')">香草</button>
+        <button class="button" onclick="submitOrder(1, '巧克力')">巧克力</button>
+        <button class="button" onclick="submitOrder(1, '芒果')">芒果</button>
+    </div>
+
+    <div id="page-two-flavor1" class="page-container hidden">
+        <h1>選第一球口味</h1>
+        <button class="button" onclick="selectTwoFlavor('香草')">香草</button>
+        <button class="button" onclick="selectTwoFlavor('巧克力')">巧克力</button>
+        <button class="button" onclick="selectTwoFlavor('芒果')">芒果</button>
+    </div>
+
+    <div id="page-two-flavor2" class="page-container hidden">
+        <h1>選第二球口味</h1>
+        <button class="button" onclick="submitTwoFlavors('香草')">香草</button>
+        <button class="button" onclick="submitTwoFlavors('巧克力')">巧克力</button>
+        <button class="button" onclick="submitTwoFlavors('芒果')">芒果</button>
+    </div>
+
+    <!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>冰淇淋點餐機</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 20px;
+            background: #fff7f0;
+            margin: 0;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            color: #ff8c00; /* 深橘色 */
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .page-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 400px; /* 限制內容最大寬度 */
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .button {
+            display: block;
+            margin: 15px auto;
+            padding: 20px 40px;
+            font-size: 1.8rem;
+            border: none;
+            border-radius: 15px; /* 更圓潤的按鈕 */
+            cursor: pointer;
+            background-color: #ffb347; /* 淺橘色 */
+            color: white;
+            width: 80%;
+            max-width: 300px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2); /* 更明顯的陰影 */
+            transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none; /* 移除可能有的連結下劃線 */
+        }
+        .button:hover {
+            background-color: #ffa500; /* 懸停時顏色加深 */
+            transform: translateY(-3px); /* 輕微上浮效果 */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3); /* 懸停時陰影變大 */
+        }
+        .hidden {
+            display: none;
+        }
+        /* 手機適應性 */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+            .button {
+                padding: 15px 30px;
+                font-size: 1.5rem;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="page-home" class="page-container">
+        <h1>你要幾球？</h1>
+        <button class="button" onclick="selectScoops(1)">一球</button>
+        <button class="button" onclick="selectScoops(2)">兩球</button>
+    </div>
+
+    <div id="page-one-flavor" class="page-container hidden">
+        <h1>選一個口味</h1>
+        <button class="button" onclick="submitOrder(1, '香草')">香草</button>
+        <button class="button" onclick="submitOrder(1, '巧克力')">巧克力</button>
+        <button class="button" onclick="submitOrder(1, '芒果')">芒果</button>
+    </div>
+
+    <div id="page-two-flavor1" class="page-container hidden">
+        <h1>選第一球口味</h1>
+        <button class="button" onclick="selectTwoFlavor('香草')">香草</button>
+        <button class="button" onclick="selectTwoFlavor('巧克力')">巧克力</button>
+        <button class="button" onclick="selectTwoFlavor('芒果')">芒果</button>
+    </div>
+
+    <div id="page-two-flavor2" class="page-container hidden">
+        <h1>選第二球口味</h1>
+        <button class="button" onclick="submitTwoFlavors('香草')">香草</button>
+        <button class="button" onclick="submitTwoFlavors('巧克力')">巧克力</button>
+        <button class="button" onclick="submitTwoFlavors('芒果')">芒果</button>
+    </div>
+
+    <script>
+        // *** 從步驟一-4 取得的 Google 表單預填連結基礎 URL ***
+        // 範例: "https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform"
+        const GOOGLE_FORM_BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSdKTYvVETtlYVlXpKmLU26rs6tJAgaJsCtyfrvbkRj8ZADeWw/viewform"; 
+        
+        // *** 從步驟一-4 取得的 Google 表單欄位對應 ID ***
+        const FORM_FIELD_IDS = {
+            scoops: "entry.1038357426", 
+            flavor1: "entry.72034756", 
+            flavor2: "entry.1888336041", // 確保取得這個ID
+            price: "entry.743493072"    
+        };
+
+        let currentScoops = 0;
+        let firstFlavorForTwoScoops = "";
+
+        function showPage(id) {
+            document.querySelectorAll('.page-container').forEach(div => div.classList.add('hidden'));
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function selectScoops(scoops) {
+            currentScoops = scoops;
+            if (scoops === 1) {
+                showPage("page-one-flavor");
+            } else {
+                showPage("page-two-flavor1");
+            }
+        }
+
+        function selectTwoFlavor(flavor) {
+            firstFlavorForTwoScoops = flavor;
+            showPage("page-two-flavor2");
+        }
+
+        function submitOrder(scoops, flavor1, flavor2 = "") {
+            const price = (scoops === 1) ? 30 : 50;
+            
+            // 每次提交前，確保創建一個新的 iframe 和 form，避免重複或舊的狀態干擾
+            // 首先移除任何可能存在的舊的 iframe 或 form
+            const oldIframe = document.getElementById('hidden_iframe');
+            if (oldIframe) oldIframe.parentNode.removeChild(oldIframe);
+            const oldForm = document.getElementById('temp_form_submit'); // 給表單一個 ID
+            if (oldForm) oldForm.parentNode.removeChild(oldForm);
+
+
+            // 創建 iframe
+            const iframe = document.createElement('iframe');
+            iframe.name = 'hidden_iframe';
+            iframe.id = 'hidden_iframe';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+
+            // 創建 form
+            const form = document.createElement('form');
+            form.action = GOOGLE_FORM_BASE_URL.replace('/viewform', '/formResponse'); // 提交到 formResponse 端點
+            form.method = 'POST'; // 模擬 POST 提交
+            form.target = 'hidden_iframe'; // 提交到隱藏的 iframe
+            form.style.display = 'none'; // 隱藏表單
+            form.id = 'temp_form_submit'; // 給表單一個 ID，方便移除
+
+            // 添加欄位
+            const fields = {
+                [FORM_FIELD_IDS.scoops]: scoops,
+                [FORM_FIELD_IDS.flavor1]: flavor1,
+                [FORM_FIELD_IDS.flavor2]: flavor2, 
+                [FORM_FIELD_IDS.price]: price
+            };
+
+            for (const key in fields) {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = fields[key];
+                form.appendChild(input);
+            }
+
+            document.body.appendChild(form); // 將表單添加到 body
+
+            // 設定 iframe 加載完成時的處理函數
+            // 這個函數會在 iframe 完成載入其內容時觸發，包括表單提交後的 Google 表單回應頁面
+            iframe.onload = function() {
+                console.log("表單提交到 iframe 完成。");
+                // 成功提交後，執行提示和頁面切換
+                alert("訂單已送出！");
+                showPage("page-home"); 
+                // 重置狀態
+                currentScoops = 0;
+                firstFlavorForTwoScoops = "";
+                // 移除表單和 iframe 以保持 DOM 整潔
+                if (form.parentNode) {
+                    form.parentNode.removeChild(form);
+                }
+                if (iframe.parentNode) {
+                    iframe.parentNode.removeChild(iframe);
+                }
+            };
+
+            // 提交表單
+            form.submit(); 
+            console.log("訂單數據已嘗試提交到 Google 表單。請檢查 Google 試算表。");
+        }
+
+        function submitTwoFlavors(secondFlavor) {
+            submitOrder(currentScoops, firstFlavorForTwoScoops, secondFlavor);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage("page-home");
+        });
+    </script>
+
+</body>
+</html>
